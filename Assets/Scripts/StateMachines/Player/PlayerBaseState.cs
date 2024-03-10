@@ -11,4 +11,3 @@ public abstract class PlayerBaseState : State
         this.stateMachine = stateMachine;
     }
 }
-

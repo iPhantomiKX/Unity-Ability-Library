@@ -6,8 +6,14 @@ using UnityEngine;
 public class Targeter : MonoBehaviour
 {
     [SerializeField] private CinemachineTargetGroup m_CineTargetGroup;
+    private Camera m_MainCamera;
     public List<Target> m_Targets = new List<Target>();
     public Target m_CurrentTarget { get; private set; }
+
+    private void Start()
+    {
+        m_MainCamera = Camera.main;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,7 +34,26 @@ public class Targeter : MonoBehaviour
     {
         if(m_Targets.Count == 0) return false;
 
-        m_CurrentTarget = m_Targets[0];
+        Target closestTarget = null;
+        float closestTargetDistance = Mathf.Infinity;
+
+        foreach(Target target in m_Targets)
+        {
+            Vector2 viewPos = m_MainCamera.WorldToViewportPoint(target.transform.position);
+
+            if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1) continue;
+
+            Vector2 toCenter = viewPos - new Vector2(0.5f, 0.5f);
+            if(toCenter.sqrMagnitude < closestTargetDistance)
+            {
+                closestTarget = target;
+                closestTargetDistance = toCenter.sqrMagnitude;
+            }
+        }
+
+        if(closestTarget == null) return false;
+
+        m_CurrentTarget = closestTarget;
         m_CineTargetGroup.AddMember(m_CurrentTarget.transform, 1f, 2f);
 
         return true;

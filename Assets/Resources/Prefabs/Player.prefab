@@ -1036,6 +1036,19 @@ MonoBehaviour:
   <m_TargetingMovementSpeed>k__BackingField: 5
   <m_RotationDamping>k__BackingField: 10
   m_IsFocusingEnemy: 0
+  <m_Attacks>k__BackingField:
+  - <m_AnimationName>k__BackingField: Attack1
+    <m_TransitionDuration>k__BackingField: 0.1
+    <m_ComboStateIndex>k__BackingField: 1
+    <m_ComboAttackTime>k__BackingField: 0.6
+  - <m_AnimationName>k__BackingField: Attack2
+    <m_TransitionDuration>k__BackingField: 0.1
+    <m_ComboStateIndex>k__BackingField: 2
+    <m_ComboAttackTime>k__BackingField: 0.5
+  - <m_AnimationName>k__BackingField: Attack3
+    <m_TransitionDuration>k__BackingField: 0.2
+    <m_ComboStateIndex>k__BackingField: -1
+    <m_ComboAttackTime>k__BackingField: 0
 --- !u!114 &2422871963117066350
 MonoBehaviour:
   m_ObjectHideFlags: 0

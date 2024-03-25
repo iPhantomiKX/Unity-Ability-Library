@@ -13,6 +13,7 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float m_TargetingMovementSpeed {  get; private set; }
     [field: SerializeField] public float m_RotationDamping {  get; private set; }
     [field: SerializeField] public bool m_IsFocusingEnemy;
+    [field: SerializeField] public Attack[] m_Attacks { get; private set; }
 
     public Transform m_MainCameraTransform {  get; private set; }
 

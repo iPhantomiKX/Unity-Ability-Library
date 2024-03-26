@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerStateMachine : StateMachine
@@ -14,6 +15,8 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float m_RotationDamping {  get; private set; }
     [field: SerializeField] public bool m_IsFocusingEnemy;
     [field: SerializeField] public Attack[] m_Attacks { get; private set; }
+    [field: SerializeField] public float m_CurrentAttackTimer = 0f;
+    [field: SerializeField] public float m_MaxAttackTimer = 1f;
 
     public Transform m_MainCameraTransform {  get; private set; }
 

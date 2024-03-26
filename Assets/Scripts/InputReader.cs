@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class InputReader : MonoBehaviour, Controls.IPlayerActions
 {
@@ -66,9 +67,6 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed) { return; }
-
         if (context.started) { IsAttacking = true; }
-        if (context.canceled) { IsAttacking = false; }
     }
 }

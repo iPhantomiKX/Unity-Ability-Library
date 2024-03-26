@@ -21,6 +21,21 @@ public class PlayerAttackingState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
+        //This works but idk why
+        //Prevents Press and Hold Behaviour!
+        if (stateMachine.m_InputReader.IsAttacking)
+        {
+            if (stateMachine.m_CurrentAttackTimer >= stateMachine.m_MaxAttackTimer)
+            {
+                stateMachine.m_InputReader.IsAttacking = false;
+                stateMachine.m_CurrentAttackTimer = 0f;
+            }
+            else
+                stateMachine.m_CurrentAttackTimer += deltaTime;
+        }
+        else
+            stateMachine.m_CurrentAttackTimer = 0f;
+
         //let the player still experience forces when attacking
         Move(deltaTime);
         FaceTarget();

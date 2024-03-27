@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
@@ -14,16 +15,13 @@ public class PlayerFreeLookState : PlayerBaseState
     public override void Enter()
     {
         stateMachine.m_InputReader.TargetEvent += OnTarget;
+        stateMachine.m_InputReader.AttackEvent += OnAttack;
         stateMachine.m_Animator.Play(m_FreeLookBlendTreeHash);
     }
 
     public override void Tick(float deltaTime)
     {
-        if (stateMachine.m_InputReader.IsAttacking)
-        {
-            stateMachine.SwitchState(new PlayerAttackingState(stateMachine, 0));
-            return;
-        }
+
 
         Vector3 movement = CalculateMovement();
 
@@ -42,6 +40,12 @@ public class PlayerFreeLookState : PlayerBaseState
     public override void Exit()
     {
         stateMachine.m_InputReader.TargetEvent -= OnTarget;
+        stateMachine.m_InputReader.AttackEvent -= OnAttack;
+    }
+
+    private void OnAttack()
+    {
+        stateMachine.SwitchState(new PlayerAttackingState(stateMachine, 0));
     }
 
     private void OnTarget()

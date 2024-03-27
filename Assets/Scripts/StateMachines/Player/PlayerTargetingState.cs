@@ -14,6 +14,7 @@ public class PlayerTargetingState : PlayerBaseState
     public override void Enter()
     {
         stateMachine.m_InputReader.TargetEvent += OnCancel;
+        stateMachine.m_InputReader.AttackEvent += OnAttack;
         stateMachine.m_Animator.Play(m_TargetingBlendTreeHash);
     }
 
@@ -66,6 +67,12 @@ public class PlayerTargetingState : PlayerBaseState
     public override void Exit()
     {
         stateMachine.m_InputReader.TargetEvent -= OnCancel;
+        stateMachine.m_InputReader.AttackEvent -= OnAttack;
+    }
+
+    private void OnAttack()
+    {
+        stateMachine.SwitchState(new PlayerAttackingState(stateMachine, 0));
     }
 
     private void OnCancel()

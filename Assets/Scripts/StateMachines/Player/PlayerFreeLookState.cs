@@ -21,8 +21,6 @@ public class PlayerFreeLookState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-
-
         Vector3 movement = CalculateMovement();
 
         Move(movement * stateMachine.m_FreeLookMovementSpeed, deltaTime);

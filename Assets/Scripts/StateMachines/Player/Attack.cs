@@ -10,6 +10,8 @@ public class Attack //to be turned into a scriptable object
     [field: SerializeField] public float m_TransitionDuration { get; private set; }
     [field: SerializeField] public int m_ComboStateIndex { get; private set; } = -1;
     [field: SerializeField] public float m_ComboAttackTime { get; private set; }
+    [field: SerializeField] public float m_ForceTime { get; private set; }
+    [field: SerializeField] public float m_Force { get; private set; }
 }
 
 //Create an AttackComboSO

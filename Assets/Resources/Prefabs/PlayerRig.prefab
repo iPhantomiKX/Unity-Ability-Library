@@ -1293,6 +1293,10 @@ PrefabInstance:
       value: -0.32280427
       objectReference: {fileID: 0}
     - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
+      propertyPath: m_MaxAttackTimer
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: <m_Attacks>k__BackingField.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -1325,24 +1329,28 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
+      propertyPath: <m_Attacks>k__BackingField.Array.data[3].<m_ComboAttackTime>k__BackingField
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: <m_Attacks>k__BackingField.Array.data[3].<m_ComboStateIndex>k__BackingField
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: <m_Attacks>k__BackingField.Array.data[0].<m_TransitionDuration>k__BackingField
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: <m_Attacks>k__BackingField.Array.data[1].<m_TransitionDuration>k__BackingField
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: <m_Attacks>k__BackingField.Array.data[2].<m_TransitionDuration>k__BackingField
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: <m_Attacks>k__BackingField.Array.data[3].<m_TransitionDuration>k__BackingField
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2629785952640422397, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

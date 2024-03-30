@@ -30,4 +30,14 @@ public abstract class PlayerBaseState : State
 
         stateMachine.transform.rotation = Quaternion.LookRotation(lookPos);
     }
+
+    protected void TryApplyForce(Vector3 direction, float force, float deltaTime, ref bool hasAlreadyAppliedForce)
+    {
+        if (!hasAlreadyAppliedForce)
+        {
+            stateMachine.m_ForceReceiver.AddForce(direction * force);
+            hasAlreadyAppliedForce = true;
+        }
+        Move(stateMachine.m_ForceReceiver.GetImpact(), deltaTime);
+    }
 }

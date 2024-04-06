@@ -15,7 +15,7 @@ public class PlayerTargetingState : PlayerBaseState
     {
         stateMachine.m_InputReader.TargetEvent += OnCancel;
         stateMachine.m_InputReader.AttackEvent += OnAttack;
-        stateMachine.m_Animator.Play(m_TargetingBlendTreeHash);
+        stateMachine.m_Animator.CrossFadeInFixedTime(m_TargetingBlendTreeHash, stateMachine.m_CrossFadeDuration);
     }
 
     public override void Tick(float deltaTime)
@@ -66,6 +66,7 @@ public class PlayerTargetingState : PlayerBaseState
 
     public override void Exit()
     {
+        stateMachine.m_IsFocusingEnemy = false;
         stateMachine.m_InputReader.TargetEvent -= OnCancel;
         stateMachine.m_InputReader.AttackEvent -= OnAttack;
     }

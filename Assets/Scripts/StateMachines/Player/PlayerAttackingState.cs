@@ -19,6 +19,7 @@ public class PlayerAttackingState : PlayerBaseState
     public override void Enter()
     {
         stateMachine.m_InputReader.AttackEvent += OnAttack;
+        stateMachine.m_Weapon.SetDamage(m_Attack.m_Damage);
         stateMachine.m_Animator.CrossFadeInFixedTime(m_Attack.m_AnimationName, m_Attack.m_TransitionDuration);
         stateMachine.m_MaxAttackTimer = m_Attack.m_TransitionDuration;
     }

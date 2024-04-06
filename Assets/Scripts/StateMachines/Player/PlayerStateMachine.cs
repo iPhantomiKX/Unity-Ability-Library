@@ -10,14 +10,16 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public Animator m_Animator {  get; private set; }
     [field: SerializeField] public Targeter m_Targeter {  get; private set; }
     [field: SerializeField] public ForceReceiver m_ForceReceiver {  get; private set; }
+    [field: SerializeField] public WeaponDamage m_Weapon { get; private set; }
     [field: SerializeField] public float m_FreeLookMovementSpeed {  get; private set; }
     [field: SerializeField] public float m_TargetingMovementSpeed {  get; private set; }
-    [field: SerializeField] public float m_RotationDamping {  get; private set; }
+    [field: SerializeField] public float m_RotationDamping { get; private set; }
     [field: SerializeField] public bool m_IsFocusingEnemy;
     [field: SerializeField] public Attack[] m_Attacks { get; private set; }
     [field: SerializeField] public float m_CurrentAttackTimer = 0f;
     [field: SerializeField] public float m_CurrentAnimNormalizedTime = 0f;
     [field: SerializeField] public float m_MaxAttackTimer = 1f;
+    [field: SerializeField] public float m_CrossFadeDuration = 0.1f;
 
     public Transform m_MainCameraTransform {  get; private set; }
 

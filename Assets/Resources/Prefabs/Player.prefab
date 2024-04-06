@@ -324,6 +324,8 @@ GameObject:
   m_Component:
   - component: {fileID: 140012277209228345}
   - component: {fileID: 2060896876935524644}
+  - component: {fileID: 5045109521346822242}
+  - component: {fileID: 5177866790772264550}
   m_Layer: 0
   m_Name: WeaponCollider
   m_TagString: Untagged
@@ -359,6 +361,35 @@ CapsuleCollider:
   m_Height: 2.15
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!54 &5045109521346822242
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081308666300230068}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5177866790772264550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081308666300230068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02db27f09e3337b429f166e3be93ee12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OwnCollider: {fileID: 3361112917523187984}
 --- !u!1 &1143718296108196884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,6 +1146,7 @@ GameObject:
   - component: {fileID: 2422871963117066351}
   - component: {fileID: 2422871963117066350}
   - component: {fileID: 5525070703152877697}
+  - component: {fileID: 5907486087454901516}
   - component: {fileID: 3361112917523187984}
   - component: {fileID: 2422871963117066352}
   m_Layer: 0
@@ -1174,32 +1206,43 @@ MonoBehaviour:
   <m_Animator>k__BackingField: {fileID: 2422871963117066352}
   <m_Targeter>k__BackingField: {fileID: 7653286798670081166}
   <m_ForceReceiver>k__BackingField: {fileID: 6926488234619788762}
+  <m_Weapon>k__BackingField: {fileID: 5177866790772264550}
   <m_FreeLookMovementSpeed>k__BackingField: 6
   <m_TargetingMovementSpeed>k__BackingField: 5
   <m_RotationDamping>k__BackingField: 10
   m_IsFocusingEnemy: 0
   <m_Attacks>k__BackingField:
   - <m_AnimationName>k__BackingField: Attack1
-    <m_TransitionDuration>k__BackingField: 0.1
+    <m_TransitionDuration>k__BackingField: 0.3
     <m_ComboStateIndex>k__BackingField: 1
-    <m_ComboAttackTime>k__BackingField: 0.6
-    <m_ForceTime>k__BackingField: 0
-    <m_Force>k__BackingField: 0
-  - <m_AnimationName>k__BackingField: Attack2
-    <m_TransitionDuration>k__BackingField: 0.1
+    <m_ComboAttackTime>k__BackingField: 0.85
+    <m_ForceTime>k__BackingField: 0.15
+    <m_Force>k__BackingField: 10
+    <m_Damage>k__BackingField: 10
+  - <m_AnimationName>k__BackingField: Attack4
+    <m_TransitionDuration>k__BackingField: 0.3
     <m_ComboStateIndex>k__BackingField: 2
-    <m_ComboAttackTime>k__BackingField: 0.5
-    <m_ForceTime>k__BackingField: 0
-    <m_Force>k__BackingField: 0
+    <m_ComboAttackTime>k__BackingField: 0.85
+    <m_ForceTime>k__BackingField: 0.15
+    <m_Force>k__BackingField: 10
+    <m_Damage>k__BackingField: 10
+  - <m_AnimationName>k__BackingField: Attack2
+    <m_TransitionDuration>k__BackingField: 0.3
+    <m_ComboStateIndex>k__BackingField: 3
+    <m_ComboAttackTime>k__BackingField: 0.85
+    <m_ForceTime>k__BackingField: 0.15
+    <m_Force>k__BackingField: 20
+    <m_Damage>k__BackingField: 30
   - <m_AnimationName>k__BackingField: Attack3
-    <m_TransitionDuration>k__BackingField: 0.2
-    <m_ComboStateIndex>k__BackingField: -1
-    <m_ComboAttackTime>k__BackingField: 0
-    <m_ForceTime>k__BackingField: 0
-    <m_Force>k__BackingField: 0
+    <m_TransitionDuration>k__BackingField: 0.3
+    <m_ComboStateIndex>k__BackingField: 0
+    <m_ComboAttackTime>k__BackingField: 1.25
+    <m_ForceTime>k__BackingField: 0.15
+    <m_Force>k__BackingField: 10
+    <m_Damage>k__BackingField: 50
   m_CurrentAttackTimer: 0
   m_CurrentAnimNormalizedTime: 0
-  m_MaxAttackTimer: 1
+  m_MaxAttackTimer: 1.75
 --- !u!114 &2422871963117066350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,6 +1269,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_WeaponLogic: {fileID: 1081308666300230068}
+--- !u!114 &5907486087454901516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3290833723222703299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042908b6800ea1446a37efe4f04085f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxHealth: 100
 --- !u!143 &3361112917523187984
 CharacterController:
   m_ObjectHideFlags: 0

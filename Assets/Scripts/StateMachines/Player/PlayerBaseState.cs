@@ -4,16 +4,15 @@ using UnityEngine;
 
 public abstract class PlayerBaseState : State
 {
-    protected PlayerStateMachine stateMachine;
 
-    public PlayerBaseState(PlayerStateMachine stateMachine)
-    {
-        this.stateMachine = stateMachine;
-    }
+    //public PlayerBaseState(PlayerStateMachine m_StateMachine)
+    //{
+    //    this.m_StateMachine = m_StateMachine;
+    //}
 
     protected void Move(Vector3 motion, float deltaTime)
     {
-        stateMachine.m_Controller.Move((motion + stateMachine.m_ForceReceiver.m_Movement) * deltaTime);
+        ((PlayerStateMachine)m_StateMachine).m_Controller.Move((motion + ((PlayerStateMachine)m_StateMachine).m_ForceReceiver.m_Movement) * deltaTime);
     }
 
     protected void Move(float deltaTime)
@@ -23,21 +22,21 @@ public abstract class PlayerBaseState : State
 
     protected void FaceTarget()
     {
-        if (stateMachine.m_Targeter.m_CurrentTarget == null) return;
+        if (((PlayerStateMachine)m_StateMachine).m_Targeter.m_CurrentTarget == null) return;
 
-        Vector3 lookPos = stateMachine.m_Targeter.m_CurrentTarget.transform.position - stateMachine.transform.position;
+        Vector3 lookPos = ((PlayerStateMachine)m_StateMachine).m_Targeter.m_CurrentTarget.transform.position - ((PlayerStateMachine)m_StateMachine).transform.position;
         lookPos.y = 0f;
 
-        stateMachine.transform.rotation = Quaternion.LookRotation(lookPos);
+        ((PlayerStateMachine)m_StateMachine).transform.rotation = Quaternion.LookRotation(lookPos);
     }
 
     protected void TryApplyForce(Vector3 direction, float force, float deltaTime, ref bool hasAlreadyAppliedForce)
     {
         if (!hasAlreadyAppliedForce)
         {
-            stateMachine.m_ForceReceiver.AddForce(direction * force);
+            ((PlayerStateMachine)m_StateMachine).m_ForceReceiver.AddForce(direction * force);
             hasAlreadyAppliedForce = true;
         }
-        Move(stateMachine.m_ForceReceiver.GetImpact(), deltaTime);
+        Move(((PlayerStateMachine)m_StateMachine).m_ForceReceiver.GetImpact(), deltaTime);
     }
 }

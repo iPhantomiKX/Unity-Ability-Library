@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerTargetingState : PlayerBaseState
@@ -9,32 +10,32 @@ public class PlayerTargetingState : PlayerBaseState
     private readonly int m_TargetingForwardHash = Animator.StringToHash("TargetingForward");
     private readonly int m_TargetingRightHash = Animator.StringToHash("TargetingRight");
 
-    public PlayerTargetingState(PlayerStateMachine stateMachine) : base(stateMachine) { }
-
     public override void Enter()
     {
-        stateMachine.m_InputReader.TargetEvent += OnCancel;
-        stateMachine.m_InputReader.AttackEvent += OnAttack;
-        stateMachine.m_Animator.CrossFadeInFixedTime(m_TargetingBlendTreeHash, stateMachine.m_CrossFadeDuration);
+        ((PlayerStateMachine)m_StateMachine).m_InputReader.TargetEvent += OnCancel;
+        ((PlayerStateMachine)m_StateMachine).m_InputReader.AttackEvent += OnAttack;
+        ((PlayerStateMachine)m_StateMachine).m_Animator.CrossFadeInFixedTime(m_TargetingBlendTreeHash, ((PlayerStateMachine)m_StateMachine).m_CrossFadeDuration);
     }
 
     public override void Tick(float deltaTime)
     {
-        if(stateMachine.m_InputReader.IsAttacking)
+        if(((PlayerStateMachine)m_StateMachine).m_InputReader.IsAttacking)
         {
-            stateMachine.SwitchState(new PlayerAttackingState(stateMachine, 0));
+            ((PlayerStateMachine)m_StateMachine).m_NextStateName = "Attacking";
+            ((PlayerStateMachine)m_StateMachine).SwitchState(((PlayerStateMachine)m_StateMachine).GetPlayerStateFromName(((PlayerStateMachine)m_StateMachine).m_NextStateName), ((PlayerStateMachine)m_StateMachine));
             return;
         }
-        if(stateMachine.m_Targeter.m_CurrentTarget == null)
+        if(((PlayerStateMachine)m_StateMachine).m_Targeter.m_CurrentTarget == null)
         {
-            stateMachine.m_IsFocusingEnemy = false;
-            stateMachine.SwitchState(new PlayerFreeLookState(stateMachine));
+            ((PlayerStateMachine)m_StateMachine).m_IsFocusingEnemy = false;
+            ((PlayerStateMachine)m_StateMachine).m_NextStateName = "FreeLooking";
+            ((PlayerStateMachine)m_StateMachine).SwitchState(((PlayerStateMachine)m_StateMachine).GetPlayerStateFromName(((PlayerStateMachine)m_StateMachine).m_NextStateName), ((PlayerStateMachine)m_StateMachine));
             return;
         }
 
         Vector3 movement = CalculateMovement();
 
-        Move(movement * stateMachine.m_TargetingMovementSpeed, deltaTime);
+        Move(movement * ((PlayerStateMachine)m_StateMachine).m_TargetingMovementSpeed, deltaTime);
 
         UpdateAnimator(deltaTime);
 
@@ -43,47 +44,49 @@ public class PlayerTargetingState : PlayerBaseState
 
     private void UpdateAnimator(float deltaTime)
     {
-        if(stateMachine.m_InputReader.MovementValue.y == 0)
+        if(((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue.y == 0)
         {
-            stateMachine.m_Animator.SetFloat(m_TargetingForwardHash, 0, 0.1f, deltaTime);
+            ((PlayerStateMachine)m_StateMachine).m_Animator.SetFloat(m_TargetingForwardHash, 0, 0.1f, deltaTime);
         }
         else
         {
-            float value = stateMachine.m_InputReader.MovementValue.y > 0 ? 1f : -1f;
-            stateMachine.m_Animator.SetFloat(m_TargetingForwardHash, value, 0.1f, deltaTime);
+            float value = ((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue.y > 0 ? 1f : -1f;
+            ((PlayerStateMachine)m_StateMachine).m_Animator.SetFloat(m_TargetingForwardHash, value, 0.1f, deltaTime);
         }
 
-        if (stateMachine.m_InputReader.MovementValue.x == 0)
+        if (((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue.x == 0)
         {
-            stateMachine.m_Animator.SetFloat(m_TargetingRightHash, 0, 0.1f, deltaTime);
+            ((PlayerStateMachine)m_StateMachine).m_Animator.SetFloat(m_TargetingRightHash, 0, 0.1f, deltaTime);
         }
         else
         {
-            float value = stateMachine.m_InputReader.MovementValue.x > 0 ? 1f : -1f;
-            stateMachine.m_Animator.SetFloat(m_TargetingRightHash, value, 0.1f, deltaTime);
+            float value = ((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue.x > 0 ? 1f : -1f;
+            ((PlayerStateMachine)m_StateMachine).m_Animator.SetFloat(m_TargetingRightHash, value, 0.1f, deltaTime);
         }
     }
 
     public override void Exit()
     {
-        stateMachine.m_IsFocusingEnemy = false;
-        stateMachine.m_InputReader.TargetEvent -= OnCancel;
-        stateMachine.m_InputReader.AttackEvent -= OnAttack;
+        ((PlayerStateMachine)m_StateMachine).m_IsFocusingEnemy = false;
+        ((PlayerStateMachine)m_StateMachine).m_InputReader.TargetEvent -= OnCancel;
+        ((PlayerStateMachine)m_StateMachine).m_InputReader.AttackEvent -= OnAttack;
     }
 
     private void OnAttack()
     {
-        stateMachine.SwitchState(new PlayerAttackingState(stateMachine, 0));
+        ((PlayerStateMachine)m_StateMachine).m_NextStateName = "Attacking";
+        ((PlayerStateMachine)m_StateMachine).SwitchState(((PlayerStateMachine)m_StateMachine).GetPlayerStateFromName(((PlayerStateMachine)m_StateMachine).m_NextStateName), ((PlayerStateMachine)m_StateMachine));
     }
 
     private void OnCancel()
     {
-        stateMachine.m_Targeter.Cancel();
+        ((PlayerStateMachine)m_StateMachine).m_Targeter.Cancel();
 
-        if(stateMachine.m_IsFocusingEnemy)
+        if(((PlayerStateMachine)m_StateMachine).m_IsFocusingEnemy)
         {
-            stateMachine.m_IsFocusingEnemy = false;
-            stateMachine.SwitchState(new PlayerFreeLookState(stateMachine));
+            ((PlayerStateMachine)m_StateMachine).m_IsFocusingEnemy = false;
+            ((PlayerStateMachine)m_StateMachine).m_NextStateName = "FreeLooking";
+            ((PlayerStateMachine)m_StateMachine).SwitchState(((PlayerStateMachine)m_StateMachine).GetPlayerStateFromName(((PlayerStateMachine)m_StateMachine).m_NextStateName), ((PlayerStateMachine)m_StateMachine));
         }
     }
 
@@ -91,8 +94,8 @@ public class PlayerTargetingState : PlayerBaseState
     {
         Vector3 movement = new Vector3();
 
-        movement += stateMachine.transform.right * stateMachine.m_InputReader.MovementValue.x;
-        movement += stateMachine.transform.forward * stateMachine.m_InputReader.MovementValue.y;
+        movement += ((PlayerStateMachine)m_StateMachine).transform.right * ((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue.x;
+        movement += ((PlayerStateMachine)m_StateMachine).transform.forward * ((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue.y;
 
         return movement;
     }

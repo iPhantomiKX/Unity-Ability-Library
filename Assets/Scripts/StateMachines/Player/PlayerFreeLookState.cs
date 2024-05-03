@@ -12,55 +12,55 @@ public class PlayerFreeLookState : PlayerBaseState
 
     public override void Enter()
     {
-        ((PlayerStateMachine)m_StateMachine).m_InputReader.TargetEvent += OnTarget;
-        ((PlayerStateMachine)m_StateMachine).m_InputReader.AttackEvent += OnAttack;
-        ((PlayerStateMachine)m_StateMachine).m_Animator.CrossFadeInFixedTime(m_FreeLookBlendTreeHash, ((PlayerStateMachine)m_StateMachine).m_CrossFadeDuration);
+        PlayerStateMachine.Instance.m_InputReader.TargetEvent += OnTarget;
+        PlayerStateMachine.Instance.m_InputReader.AttackEvent += OnAttack;
+        PlayerStateMachine.Instance.m_Animator.CrossFadeInFixedTime(m_FreeLookBlendTreeHash, PlayerStateMachine.Instance.m_CrossFadeDuration);
     }
 
     public override void Tick(float deltaTime)
     {
         Vector3 movement = CalculateMovement();
 
-        Move(movement * ((PlayerStateMachine)m_StateMachine).m_FreeLookMovementSpeed, deltaTime);
+        Move(movement * PlayerStateMachine.Instance.m_FreeLookMovementSpeed, deltaTime);
 
-        if (((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue == Vector2.zero)
+        if (PlayerStateMachine.Instance.m_InputReader.MovementValue == Vector2.zero)
         {
-            ((PlayerStateMachine)m_StateMachine).m_Animator.SetFloat(m_FreeLookSpeedHash, 0, m_AnimatorDampTime, deltaTime);
+            PlayerStateMachine.Instance.m_Animator.SetFloat(m_FreeLookSpeedHash, 0, m_AnimatorDampTime, deltaTime);
             return;
         }
 
-        ((PlayerStateMachine)m_StateMachine).m_Animator.SetFloat(m_FreeLookSpeedHash, 1, m_AnimatorDampTime, deltaTime);
+        PlayerStateMachine.Instance.m_Animator.SetFloat(m_FreeLookSpeedHash, 1, m_AnimatorDampTime, deltaTime);
         FacemovementDirection(movement, deltaTime);
     }
 
     public override void Exit()
     {
-        ((PlayerStateMachine)m_StateMachine).m_InputReader.TargetEvent -= OnTarget;
-        ((PlayerStateMachine)m_StateMachine).m_InputReader.AttackEvent -= OnAttack;
+        PlayerStateMachine.Instance.m_InputReader.TargetEvent -= OnTarget;
+        PlayerStateMachine.Instance.m_InputReader.AttackEvent -= OnAttack;
     }
 
     private void OnAttack()
     {
-        ((PlayerStateMachine)m_StateMachine).m_NextStateName = "Attacking";
-        ((PlayerStateMachine)m_StateMachine).SwitchState(((PlayerStateMachine)m_StateMachine).GetPlayerStateFromName(((PlayerStateMachine)m_StateMachine).m_NextStateName), ((PlayerStateMachine)m_StateMachine));
+        PlayerStateMachine.Instance.m_NextStateName = "Attacking";
+        PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
     }
 
     private void OnTarget()
     {
-        if (!((PlayerStateMachine)m_StateMachine).m_Targeter.SelectTarget()) return;
+        if (!PlayerStateMachine.Instance.m_Targeter.SelectTarget()) return;
         
-        if(!((PlayerStateMachine)m_StateMachine).m_IsFocusingEnemy)
+        if(!PlayerStateMachine.Instance.m_IsFocusingEnemy)
         {
-            ((PlayerStateMachine)m_StateMachine).m_IsFocusingEnemy = true;
-            ((PlayerStateMachine)m_StateMachine).m_NextStateName = "Targeting";
-            ((PlayerStateMachine)m_StateMachine).SwitchState(((PlayerStateMachine)m_StateMachine).GetPlayerStateFromName(((PlayerStateMachine)m_StateMachine).m_NextStateName), ((PlayerStateMachine)m_StateMachine));
+            PlayerStateMachine.Instance.m_IsFocusingEnemy = true;
+            PlayerStateMachine.Instance.m_NextStateName = "Targeting";
+            PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
         }
     }
 
     private Vector3 CalculateMovement()
     {
-        Vector3 forward = ((PlayerStateMachine)m_StateMachine).m_MainCameraTransform.forward;
-        Vector3 right = ((PlayerStateMachine)m_StateMachine).m_MainCameraTransform.right;
+        Vector3 forward = PlayerStateMachine.Instance.m_MainCameraTransform.forward;
+        Vector3 right = PlayerStateMachine.Instance.m_MainCameraTransform.right;
 
         forward.y = 0f;
         right.y = 0f;
@@ -68,16 +68,16 @@ public class PlayerFreeLookState : PlayerBaseState
         forward.Normalize();
         right.Normalize();
 
-        return forward * ((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue.y +
-               right * ((PlayerStateMachine)m_StateMachine).m_InputReader.MovementValue.x;
+        return forward * PlayerStateMachine.Instance.m_InputReader.MovementValue.y +
+               right * PlayerStateMachine.Instance.m_InputReader.MovementValue.x;
     }
 
     private void FacemovementDirection(Vector3 movement, float deltaTime)
     {
-        ((PlayerStateMachine)m_StateMachine).transform.rotation = Quaternion.Lerp(
-                                          ((PlayerStateMachine)m_StateMachine).transform.rotation, 
+        PlayerStateMachine.Instance.transform.rotation = Quaternion.Lerp(
+                                          PlayerStateMachine.Instance.transform.rotation, 
                                           Quaternion.LookRotation(movement),
-                                          deltaTime * ((PlayerStateMachine)m_StateMachine).m_RotationDamping);
+                                          deltaTime * PlayerStateMachine.Instance.m_RotationDamping);
     }
 }
 

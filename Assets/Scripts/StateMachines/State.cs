@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class State : ScriptableObject
 {
     public string m_StateName;
-    public StateMachine m_StateMachine;
 
     public abstract void Enter();
     public abstract void Tick(float deltaTime);

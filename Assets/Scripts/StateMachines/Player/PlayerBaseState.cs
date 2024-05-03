@@ -4,15 +4,9 @@ using UnityEngine;
 
 public abstract class PlayerBaseState : State
 {
-
-    //public PlayerBaseState(PlayerStateMachine m_StateMachine)
-    //{
-    //    this.m_StateMachine = m_StateMachine;
-    //}
-
     protected void Move(Vector3 motion, float deltaTime)
     {
-        ((PlayerStateMachine)m_StateMachine).m_Controller.Move((motion + ((PlayerStateMachine)m_StateMachine).m_ForceReceiver.m_Movement) * deltaTime);
+        PlayerStateMachine.Instance.m_Controller.Move((motion + PlayerStateMachine.Instance.m_ForceReceiver.m_Movement) * deltaTime);
     }
 
     protected void Move(float deltaTime)
@@ -22,21 +16,21 @@ public abstract class PlayerBaseState : State
 
     protected void FaceTarget()
     {
-        if (((PlayerStateMachine)m_StateMachine).m_Targeter.m_CurrentTarget == null) return;
+        if (PlayerStateMachine.Instance.m_Targeter.m_CurrentTarget == null) return;
 
-        Vector3 lookPos = ((PlayerStateMachine)m_StateMachine).m_Targeter.m_CurrentTarget.transform.position - ((PlayerStateMachine)m_StateMachine).transform.position;
+        Vector3 lookPos = PlayerStateMachine.Instance.m_Targeter.m_CurrentTarget.transform.position - PlayerStateMachine.Instance.transform.position;
         lookPos.y = 0f;
 
-        ((PlayerStateMachine)m_StateMachine).transform.rotation = Quaternion.LookRotation(lookPos);
+        PlayerStateMachine.Instance.transform.rotation = Quaternion.LookRotation(lookPos);
     }
 
     protected void TryApplyForce(Vector3 direction, float force, float deltaTime, ref bool hasAlreadyAppliedForce)
     {
         if (!hasAlreadyAppliedForce)
         {
-            ((PlayerStateMachine)m_StateMachine).m_ForceReceiver.AddForce(direction * force);
+            PlayerStateMachine.Instance.m_ForceReceiver.AddForce(direction * force);
             hasAlreadyAppliedForce = true;
         }
-        Move(((PlayerStateMachine)m_StateMachine).m_ForceReceiver.GetImpact(), deltaTime);
+        Move(PlayerStateMachine.Instance.m_ForceReceiver.GetImpact(), deltaTime);
     }
 }

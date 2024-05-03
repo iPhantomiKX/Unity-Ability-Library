@@ -6,7 +6,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using ReadOnly = Unity.Collections.ReadOnlyAttribute;
 
-public class PlayerStateMachine : StateMachine
+public class PlayerStateMachine : StateMachine  //A Player behavioural controller
 {
     //keep a list of states, then create a function here to update statemachine to go to those states
     [Header("State Machine")]
@@ -37,19 +37,31 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float m_CrossFadeDuration = 0.1f;
 
     public Transform m_MainCameraTransform { get; private set; }
+    private Dictionary<PlayerBaseState, int> m_StateCount = new Dictionary<PlayerBaseState, int>();
+
+    public static PlayerStateMachine Instance
+    {
+        get
+        {
+            if (_Instance == null)
+                _Instance = new PlayerStateMachine();
+            return _Instance;
+        }
+    }
+    private static PlayerStateMachine _Instance; 
 
     private void Start()
     {
+        _Instance = this;
         m_MainCameraTransform = Camera.main.transform;
-        foreach(PlayerBaseState playerState in m_AllStates)
+        foreach (PlayerBaseState playerState in m_AllStates)
         {
             AddStateToPlayerStateDict(playerState);
         }
         m_CurrPlayerState = m_InitialState;
-        SwitchState(m_CurrPlayerState, this);
+        SwitchState(m_CurrPlayerState);
     }
 
-    private Dictionary<PlayerBaseState, int> m_StateCount = new Dictionary<PlayerBaseState, int>();
     private void AddStateToPlayerStateDict(PlayerBaseState playerState)
     {
         if(m_StateCount.ContainsKey(playerState))
@@ -74,7 +86,7 @@ public class PlayerStateMachine : StateMachine
         {
             m_CurrPlayerState.Exit();
             m_CurrPlayerState = m_NextPlayerState;
-            SwitchState(m_CurrPlayerState, this);
+            SwitchState(m_CurrPlayerState);
             m_NextPlayerState = null;
             m_NextStateName = null;
         }

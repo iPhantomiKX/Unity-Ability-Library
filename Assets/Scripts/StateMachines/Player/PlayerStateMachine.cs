@@ -14,9 +14,9 @@ public class PlayerStateMachine : StateMachine  //A Player behavioural controlle
     [field: SerializeField] List<PlayerBaseState> m_AllStates = default;
 
     Dictionary<string, PlayerBaseState> m_PlayerStates = new Dictionary<string, PlayerBaseState>();
-    [SerializeField, ReadOnly] private PlayerBaseState m_CurrPlayerState = null;
+    private PlayerBaseState m_CurrPlayerState = null;
     public PlayerBaseState CurrState => m_CurrPlayerState;
-    [SerializeField, ReadOnly] private PlayerBaseState m_NextPlayerState = null;
+    private PlayerBaseState m_NextPlayerState = null;
     public PlayerBaseState NextState => m_NextPlayerState;
     public string m_NextStateName;  //could make it such that PlayerStateMachine actually controls the transition
 

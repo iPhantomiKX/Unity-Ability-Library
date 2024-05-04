@@ -13,46 +13,46 @@ public class PlayerAttackingState : PlayerBaseState
 
     public override void Enter()
     {
-        if (m_AttackIndex >= PlayerStateMachine.Instance.m_Attacks.Length - 1)
+        if (m_AttackIndex >= stateMachine.m_Attacks.Length - 1)
             m_AttackIndex = 0;
         else
             ++m_AttackIndex;
-        m_Attack = PlayerStateMachine.Instance.m_Attacks[m_AttackIndex];
-        PlayerStateMachine.Instance.m_CurrentAnimNormalizedTime = 0f;
-        PlayerStateMachine.Instance.m_InputReader.AttackEvent += OnAttack;
-        PlayerStateMachine.Instance.m_Weapon.SetDamage(m_Attack.m_Damage);
-        PlayerStateMachine.Instance.m_Animator.CrossFadeInFixedTime(m_Attack.m_AnimationName, m_Attack.m_TransitionDuration);
-        PlayerStateMachine.Instance.m_MaxAttackTimer = m_Attack.m_TransitionDuration;
+        m_Attack = stateMachine.m_Attacks[m_AttackIndex];
+        stateMachine.m_CurrentAnimNormalizedTime = 0f;
+        stateMachine.m_InputReader.AttackEvent += OnAttack;
+        stateMachine.m_Weapon.SetDamage(m_Attack.m_Damage);
+        stateMachine.m_Animator.CrossFadeInFixedTime(m_Attack.m_AnimationName, m_Attack.m_TransitionDuration);
+        stateMachine.m_MaxAttackTimer = m_Attack.m_TransitionDuration;
     }
 
     public override void Tick(float deltaTime)
     {
-        PlayerStateMachine.Instance.m_CurrentAnimNormalizedTime += deltaTime;
+        stateMachine.m_CurrentAnimNormalizedTime += deltaTime;
 
-        TryApplyForce(PlayerStateMachine.Instance.transform.forward, 
+        TryApplyForce(stateMachine.transform.forward, 
                       m_Attack.m_Force, 
                       deltaTime, 
                       ref m_AlreadyAppliedForce);
 
-        if (PlayerStateMachine.Instance.m_CurrentAnimNormalizedTime >= m_Attack.m_ComboAttackTime)
+        if (stateMachine.m_CurrentAnimNormalizedTime >= m_Attack.m_ComboAttackTime)
         {
-            PlayerStateMachine.Instance.m_CurrentAnimNormalizedTime = m_Attack.m_ComboAttackTime;
-            PlayerStateMachine.Instance.m_CurrentAttackTimer += deltaTime;
+            stateMachine.m_CurrentAnimNormalizedTime = m_Attack.m_ComboAttackTime;
+            stateMachine.m_CurrentAttackTimer += deltaTime;
 
-            if(PlayerStateMachine.Instance.m_CurrentAttackTimer >= PlayerStateMachine.Instance.m_MaxAttackTimer)
+            if(stateMachine.m_CurrentAttackTimer >= stateMachine.m_MaxAttackTimer)
             {
-                PlayerStateMachine.Instance.m_CurrentAttackTimer = 0f;
-                PlayerStateMachine.Instance.m_CurrentAnimNormalizedTime = 0f;
+                stateMachine.m_CurrentAttackTimer = 0f;
+                stateMachine.m_CurrentAnimNormalizedTime = 0f;
                 m_AttackIndex = -1;
-                if (PlayerStateMachine.Instance.m_Targeter.m_CurrentTarget != null)
+                if (stateMachine.m_Targeter.m_CurrentTarget != null)
                 {
-                    PlayerStateMachine.Instance.m_NextStateName = "Targeting";
-                    PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
+                    stateMachine.m_NextStateName = "Targeting";
+                    stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
                 }
                 else
                 {
-                    PlayerStateMachine.Instance.m_NextStateName = "FreeLooking";
-                    PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
+                    stateMachine.m_NextStateName = "FreeLooking";
+                    stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
                 }
             }
         }
@@ -60,17 +60,17 @@ public class PlayerAttackingState : PlayerBaseState
 
     public override void Exit()
     {
-        PlayerStateMachine.Instance.m_InputReader.AttackEvent -= OnAttack;
+        stateMachine.m_InputReader.AttackEvent -= OnAttack;
     }
 
     private void OnAttack()
     {
-        if(PlayerStateMachine.Instance.m_CurrentAnimNormalizedTime >= m_Attack.m_ComboAttackTime)
+        if(stateMachine.m_CurrentAnimNormalizedTime >= m_Attack.m_ComboAttackTime)
         {
-            PlayerStateMachine.Instance.m_CurrentAttackTimer = 0f;
-            PlayerStateMachine.Instance.m_CurrentAnimNormalizedTime = 0f;
-            PlayerStateMachine.Instance.m_NextStateName = "Attacking";
-            PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
+            stateMachine.m_CurrentAttackTimer = 0f;
+            stateMachine.m_CurrentAnimNormalizedTime = 0f;
+            stateMachine.m_NextStateName = "Attacking";
+            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
         }
     }
 }

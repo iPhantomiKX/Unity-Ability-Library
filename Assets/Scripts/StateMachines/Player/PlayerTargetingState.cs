@@ -12,30 +12,30 @@ public class PlayerTargetingState : PlayerBaseState
 
     public override void Enter()
     {
-        PlayerStateMachine.Instance.m_InputReader.TargetEvent += OnCancel;
-        PlayerStateMachine.Instance.m_InputReader.AttackEvent += OnAttack;
-        PlayerStateMachine.Instance.m_Animator.CrossFadeInFixedTime(m_TargetingBlendTreeHash, PlayerStateMachine.Instance.m_CrossFadeDuration);
+        stateMachine.m_InputReader.TargetEvent += OnCancel;
+        stateMachine.m_InputReader.AttackEvent += OnAttack;
+        stateMachine.m_Animator.CrossFadeInFixedTime(m_TargetingBlendTreeHash, stateMachine.m_CrossFadeDuration);
     }
 
     public override void Tick(float deltaTime)
     {
-        if(PlayerStateMachine.Instance.m_InputReader.IsAttacking)
+        if(stateMachine.m_InputReader.IsAttacking)
         {
-            PlayerStateMachine.Instance.m_NextStateName = "Attacking";
-            PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
+            stateMachine.m_NextStateName = "Attacking";
+            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
             return;
         }
-        if(PlayerStateMachine.Instance.m_Targeter.m_CurrentTarget == null)
+        if(stateMachine.m_Targeter.m_CurrentTarget == null)
         {
-            PlayerStateMachine.Instance.m_IsFocusingEnemy = false;
-            PlayerStateMachine.Instance.m_NextStateName = "FreeLooking";
-            PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
+            stateMachine.m_IsFocusingEnemy = false;
+            stateMachine.m_NextStateName = "FreeLooking";
+            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
             return;
         }
 
         Vector3 movement = CalculateMovement();
 
-        Move(movement * PlayerStateMachine.Instance.m_TargetingMovementSpeed, deltaTime);
+        Move(movement * stateMachine.m_TargetingMovementSpeed, deltaTime);
 
         UpdateAnimator(deltaTime);
 
@@ -44,49 +44,49 @@ public class PlayerTargetingState : PlayerBaseState
 
     private void UpdateAnimator(float deltaTime)
     {
-        if(PlayerStateMachine.Instance.m_InputReader.MovementValue.y == 0)
+        if(stateMachine.m_InputReader.MovementValue.y == 0)
         {
-            PlayerStateMachine.Instance.m_Animator.SetFloat(m_TargetingForwardHash, 0, 0.1f, deltaTime);
+            stateMachine.m_Animator.SetFloat(m_TargetingForwardHash, 0, 0.1f, deltaTime);
         }
         else
         {
-            float value = PlayerStateMachine.Instance.m_InputReader.MovementValue.y > 0 ? 1f : -1f;
-            PlayerStateMachine.Instance.m_Animator.SetFloat(m_TargetingForwardHash, value, 0.1f, deltaTime);
+            float value = stateMachine.m_InputReader.MovementValue.y > 0 ? 1f : -1f;
+            stateMachine.m_Animator.SetFloat(m_TargetingForwardHash, value, 0.1f, deltaTime);
         }
 
-        if (PlayerStateMachine.Instance.m_InputReader.MovementValue.x == 0)
+        if (stateMachine.m_InputReader.MovementValue.x == 0)
         {
-            PlayerStateMachine.Instance.m_Animator.SetFloat(m_TargetingRightHash, 0, 0.1f, deltaTime);
+            stateMachine.m_Animator.SetFloat(m_TargetingRightHash, 0, 0.1f, deltaTime);
         }
         else
         {
-            float value = PlayerStateMachine.Instance.m_InputReader.MovementValue.x > 0 ? 1f : -1f;
-            PlayerStateMachine.Instance.m_Animator.SetFloat(m_TargetingRightHash, value, 0.1f, deltaTime);
+            float value = stateMachine.m_InputReader.MovementValue.x > 0 ? 1f : -1f;
+            stateMachine.m_Animator.SetFloat(m_TargetingRightHash, value, 0.1f, deltaTime);
         }
     }
 
     public override void Exit()
     {
-        PlayerStateMachine.Instance.m_IsFocusingEnemy = false;
-        PlayerStateMachine.Instance.m_InputReader.TargetEvent -= OnCancel;
-        PlayerStateMachine.Instance.m_InputReader.AttackEvent -= OnAttack;
+        stateMachine.m_IsFocusingEnemy = false;
+        stateMachine.m_InputReader.TargetEvent -= OnCancel;
+        stateMachine.m_InputReader.AttackEvent -= OnAttack;
     }
 
     private void OnAttack()
     {
-        PlayerStateMachine.Instance.m_NextStateName = "Attacking";
-        PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
+        stateMachine.m_NextStateName = "Attacking";
+        stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
     }
 
     private void OnCancel()
     {
-        PlayerStateMachine.Instance.m_Targeter.Cancel();
+        stateMachine.m_Targeter.Cancel();
 
-        if(PlayerStateMachine.Instance.m_IsFocusingEnemy)
+        if(stateMachine.m_IsFocusingEnemy)
         {
-            PlayerStateMachine.Instance.m_IsFocusingEnemy = false;
-            PlayerStateMachine.Instance.m_NextStateName = "FreeLooking";
-            PlayerStateMachine.Instance.SwitchState(PlayerStateMachine.Instance.GetPlayerStateFromName(PlayerStateMachine.Instance.m_NextStateName));
+            stateMachine.m_IsFocusingEnemy = false;
+            stateMachine.m_NextStateName = "FreeLooking";
+            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
         }
     }
 
@@ -94,8 +94,8 @@ public class PlayerTargetingState : PlayerBaseState
     {
         Vector3 movement = new Vector3();
 
-        movement += PlayerStateMachine.Instance.transform.right * PlayerStateMachine.Instance.m_InputReader.MovementValue.x;
-        movement += PlayerStateMachine.Instance.transform.forward * PlayerStateMachine.Instance.m_InputReader.MovementValue.y;
+        movement += stateMachine.transform.right * stateMachine.m_InputReader.MovementValue.x;
+        movement += stateMachine.transform.forward * stateMachine.m_InputReader.MovementValue.y;
 
         return movement;
     }

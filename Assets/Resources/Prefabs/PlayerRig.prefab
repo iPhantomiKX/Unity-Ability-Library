@@ -622,7 +622,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8153532672388370953}
-  m_LocalRotation: {x: 0.044143457, y: 0.00000002748647, z: -0.0000000012145318, w: 0.9990252}
+  m_LocalRotation: {x: 0.044143446, y: 0.00000002748647, z: -0.0000000012145315, w: 0.9990252}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -699,7 +699,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8153532672768194181}
-  m_LocalRotation: {x: 0.026012372, y: 0.000000027503964, z: -7.1568557e-10, w: 0.9996616}
+  m_LocalRotation: {x: 0.026012382, y: 0.000000027503972, z: -7.1568607e-10, w: 0.9996616}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -776,7 +776,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8153532673017621235}
-  m_LocalRotation: {x: 0.062307928, y: 0.000000027459848, z: -0.000000001714297, w: 0.998057}
+  m_LocalRotation: {x: 0.062307898, y: 0.000000027459834, z: -0.0000000017142954, w: 0.998057}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1293,9 +1293,33 @@ PrefabInstance:
       value: -0.32280427
       objectReference: {fileID: 0}
     - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
+      propertyPath: m_InitialState
+      value: 
+      objectReference: {fileID: 11400000, guid: 524222f7761b0bf43be286855961eb3e, type: 2}
+    - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: m_MaxAttackTimer
       value: 1.75
       objectReference: {fileID: 0}
+    - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
+      propertyPath: m_AllStates.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
+      propertyPath: m_AllStates.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 524222f7761b0bf43be286855961eb3e, type: 2}
+    - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
+      propertyPath: m_AllStates.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d9054c02d7128e74f8ea279ca21b4349, type: 2}
+    - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
+      propertyPath: m_AllStates.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d013943f5fa57847bfaac6a63f56899, type: 2}
+    - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
+      propertyPath: m_AllStates.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: f42586017fe49eb499269858e3481af8, type: 2}
     - target: {fileID: 2422871963117066351, guid: 87d3c012e3246a4408b1044daece1979, type: 3}
       propertyPath: <m_Attacks>k__BackingField.Array.size
       value: 4

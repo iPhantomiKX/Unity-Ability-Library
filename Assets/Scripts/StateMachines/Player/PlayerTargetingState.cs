@@ -22,14 +22,12 @@ public class PlayerTargetingState : PlayerBaseState
         if(stateMachine.m_InputReader.IsAttacking)
         {
             stateMachine.m_NextStateName = "Attacking";
-            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
             return;
         }
         if(stateMachine.m_Targeter.m_CurrentTarget == null)
         {
             stateMachine.m_IsFocusingEnemy = false;
             stateMachine.m_NextStateName = "FreeLooking";
-            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
             return;
         }
 
@@ -75,7 +73,6 @@ public class PlayerTargetingState : PlayerBaseState
     private void OnAttack()
     {
         stateMachine.m_NextStateName = "Attacking";
-        stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
     }
 
     private void OnCancel()
@@ -86,7 +83,6 @@ public class PlayerTargetingState : PlayerBaseState
         {
             stateMachine.m_IsFocusingEnemy = false;
             stateMachine.m_NextStateName = "FreeLooking";
-            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
         }
     }
 

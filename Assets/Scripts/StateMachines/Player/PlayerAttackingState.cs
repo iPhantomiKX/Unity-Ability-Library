@@ -47,12 +47,10 @@ public class PlayerAttackingState : PlayerBaseState
                 if (stateMachine.m_Targeter.m_CurrentTarget != null)
                 {
                     stateMachine.m_NextStateName = "Targeting";
-                    stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
                 }
                 else
                 {
                     stateMachine.m_NextStateName = "FreeLooking";
-                    stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
                 }
             }
         }
@@ -70,7 +68,6 @@ public class PlayerAttackingState : PlayerBaseState
             stateMachine.m_CurrentAttackTimer = 0f;
             stateMachine.m_CurrentAnimNormalizedTime = 0f;
             stateMachine.m_NextStateName = "Attacking";
-            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
         }
     }
 }

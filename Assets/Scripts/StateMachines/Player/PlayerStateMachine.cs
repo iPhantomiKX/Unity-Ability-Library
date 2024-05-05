@@ -82,13 +82,16 @@ public class PlayerStateMachine : StateMachine  //A Player behavioural controlle
 
     private void UpdateState()
     {
+        if (m_NextStateName == "") return;
+
+        m_NextPlayerState = GetPlayerStateFromName(m_NextStateName);
+
         if (m_NextPlayerState != null)
         {
-            m_CurrPlayerState.Exit();
             m_CurrPlayerState = m_NextPlayerState;
             SwitchState(m_CurrPlayerState);
             m_NextPlayerState = null;
-            m_NextStateName = null;
+            m_NextStateName = "";
         }
     }
 

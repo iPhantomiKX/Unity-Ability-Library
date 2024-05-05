@@ -44,7 +44,6 @@ public class PlayerFreeLookState : PlayerBaseState
     private void OnAttack()
     {
         stateMachine.m_NextStateName = "Attacking";
-        stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
     }
 
     private void OnTarget()
@@ -55,14 +54,12 @@ public class PlayerFreeLookState : PlayerBaseState
         {
             stateMachine.m_IsFocusingEnemy = true;
             stateMachine.m_NextStateName = "Targeting";
-            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
         }
     }
 
     private void OnDodge()
     {
         stateMachine.m_NextStateName = "Dodging";
-        stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
     }
 
     private Vector3 CalculateMovement()

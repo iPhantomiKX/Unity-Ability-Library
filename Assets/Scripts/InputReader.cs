@@ -14,6 +14,7 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
     public event Action TargetEvent;
     public event Action CancelEvent;
     public event Action AttackEvent;
+    public event Action CastingAbilityEvent;
 
     private Controls controls;
 
@@ -72,5 +73,13 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
 
         if (context.started)
             AttackEvent?.Invoke();
+    }
+
+    public void OnCastAbility(InputAction.CallbackContext context)
+    {
+        if(context.performed) { return; }
+
+        if (context.started) //this prevents event from happening on input release
+            CastingAbilityEvent?.Invoke();
     }
 }

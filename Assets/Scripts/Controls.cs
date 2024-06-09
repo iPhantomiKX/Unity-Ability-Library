@@ -89,6 +89,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cast Ability"",
+                    ""type"": ""Button"",
+                    ""id"": ""30309d59-d6fd-4d55-97d5-dd85119b2d1b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -344,6 +353,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95bb1c66-ceeb-4243-b4dc-792d3c2f887b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse & Keyboard"",
+                    ""action"": ""Cast Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51e426a2-f74a-477d-a209-f1e40f9e1c80"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -397,6 +428,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Player_Target = m_Player.FindAction("Target", throwIfNotFound: true);
         m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_CastAbility = m_Player.FindAction("Cast Ability", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -463,6 +495,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Target;
     private readonly InputAction m_Player_Cancel;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_CastAbility;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -474,6 +507,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Target => m_Wrapper.m_Player_Target;
         public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @CastAbility => m_Wrapper.m_Player_CastAbility;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -504,6 +538,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @CastAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCastAbility;
+                @CastAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCastAbility;
+                @CastAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCastAbility;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -529,6 +566,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @CastAbility.started += instance.OnCastAbility;
+                @CastAbility.performed += instance.OnCastAbility;
+                @CastAbility.canceled += instance.OnCastAbility;
             }
         }
     }
@@ -560,5 +600,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnTarget(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnCastAbility(InputAction.CallbackContext context);
     }
 }

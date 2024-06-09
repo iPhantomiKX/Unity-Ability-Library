@@ -24,16 +24,8 @@ public class PlayerDodgingState : PlayerBaseState
 
         if (stateMachine.m_ForceReceiver.GetImpact().sqrMagnitude <= 0.1f)
         {
-            if(stateMachine.m_Targeter.m_CurrentTarget != null)
-            {
-                stateMachine.m_NextStateName = "Targeting";
-                stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
-            }
-            else
-            {
-                stateMachine.m_NextStateName = "FreeLooking";
-                stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
-            }
+            stateMachine.m_NextStateName = "FreeLooking";
+            stateMachine.SwitchState(stateMachine.GetPlayerStateFromName(stateMachine.m_NextStateName));
         }
     }
 

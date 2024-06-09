@@ -39,6 +39,12 @@ public class PlayerStateMachine : StateMachine  //A Player behavioural controlle
     public Transform m_MainCameraTransform { get; private set; }
     private Dictionary<PlayerBaseState, int> m_StateCount = new Dictionary<PlayerBaseState, int>();
 
+#region PlayerAbilities_Settings
+    //Reference to Ability Here:
+    //public Queue<Ability> PlayerAbilities;
+    //public Ability PlayerCurrentAbility;
+#endregion
+
     public static PlayerStateMachine Instance
     {
         get

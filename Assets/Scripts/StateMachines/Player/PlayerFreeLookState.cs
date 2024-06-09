@@ -15,6 +15,7 @@ public class PlayerFreeLookState : PlayerBaseState
         stateMachine.m_InputReader.TargetEvent += OnTarget;
         stateMachine.m_InputReader.AttackEvent += OnAttack;
         stateMachine.m_InputReader.DodgeEvent += OnDodge;
+        stateMachine.m_InputReader.CastingAbilityEvent += OnCastAbility;
         stateMachine.m_Animator.CrossFadeInFixedTime(m_FreeLookBlendTreeHash, stateMachine.m_CrossFadeDuration);
     }
 
@@ -39,6 +40,7 @@ public class PlayerFreeLookState : PlayerBaseState
         stateMachine.m_InputReader.TargetEvent -= OnTarget;
         stateMachine.m_InputReader.AttackEvent -= OnAttack;
         stateMachine.m_InputReader.DodgeEvent -= OnDodge;
+        stateMachine.m_InputReader.CastingAbilityEvent -= OnCastAbility;
     }
 
     private void OnAttack()
@@ -60,6 +62,11 @@ public class PlayerFreeLookState : PlayerBaseState
     private void OnDodge()
     {
         stateMachine.m_NextStateName = "Dodging";
+    }
+
+    private void OnCastAbility()
+    {
+        stateMachine.m_NextStateName = "CastAbility";
     }
 
     private Vector3 CalculateMovement()

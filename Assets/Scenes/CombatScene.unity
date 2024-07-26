@@ -412,8 +412,8 @@ MonoBehaviour:
   m_Follow: {fileID: 1026922785}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 5
-    NearClipPlane: 0.1
+    OrthographicSize: 7.5
+    NearClipPlane: -0.5
     FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0
@@ -523,11 +523,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: -0.5
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -748,8 +748,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6668785489774863491, guid: 200824c83f6457a43a39641829989cb9, type: 3}
       propertyPath: m_AllStates.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6668785489774863491, guid: 200824c83f6457a43a39641829989cb9, type: 3}
+      propertyPath: m_AllStates.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d013943f5fa57847bfaac6a63f56899, type: 2}
+    - target: {fileID: 6668785489774863491, guid: 200824c83f6457a43a39641829989cb9, type: 3}
+      propertyPath: m_AllStates.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: f42586017fe49eb499269858e3481af8, type: 2}
+    - target: {fileID: 6668785489774863491, guid: 200824c83f6457a43a39641829989cb9, type: 3}
+      propertyPath: m_AllStates.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 90667924566375f45bcbb25bc01ef044, type: 2}
     - target: {fileID: 6668785489774863491, guid: 200824c83f6457a43a39641829989cb9, type: 3}
       propertyPath: m_AllStates.Array.data[4]
       value: 

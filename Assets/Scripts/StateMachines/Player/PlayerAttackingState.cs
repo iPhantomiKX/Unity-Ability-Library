@@ -44,14 +44,7 @@ public class PlayerAttackingState : PlayerBaseState
                 stateMachine.m_CurrentAttackTimer = 0f;
                 stateMachine.m_CurrentAnimNormalizedTime = 0f;
                 m_AttackIndex = -1;
-                if (stateMachine.m_Targeter.m_CurrentTarget != null)
-                {
-                    stateMachine.m_NextStateName = "Targeting";
-                }
-                else
-                {
-                    stateMachine.m_NextStateName = "FreeLooking";
-                }
+                stateMachine.m_NextStateName = "FreeLooking";
             }
         }
     }

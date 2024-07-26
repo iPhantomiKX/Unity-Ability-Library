@@ -12,7 +12,6 @@ public class PlayerFreeLookState : PlayerBaseState
 
     public override void Enter()
     {
-        stateMachine.m_InputReader.TargetEvent += OnTarget;
         stateMachine.m_InputReader.AttackEvent += OnAttack;
         stateMachine.m_InputReader.DodgeEvent += OnDodge;
         stateMachine.m_InputReader.CastingAbilityEvent += OnCastAbility;
@@ -37,7 +36,6 @@ public class PlayerFreeLookState : PlayerBaseState
 
     public override void Exit()
     {
-        stateMachine.m_InputReader.TargetEvent -= OnTarget;
         stateMachine.m_InputReader.AttackEvent -= OnAttack;
         stateMachine.m_InputReader.DodgeEvent -= OnDodge;
         stateMachine.m_InputReader.CastingAbilityEvent -= OnCastAbility;
@@ -46,17 +44,6 @@ public class PlayerFreeLookState : PlayerBaseState
     private void OnAttack()
     {
         stateMachine.m_NextStateName = "Attacking";
-    }
-
-    private void OnTarget()
-    {
-        if (!stateMachine.m_Targeter.SelectTarget()) return;
-        
-        if(!stateMachine.m_IsFocusingEnemy)
-        {
-            stateMachine.m_IsFocusingEnemy = true;
-            stateMachine.m_NextStateName = "Targeting";
-        }
     }
 
     private void OnDodge()

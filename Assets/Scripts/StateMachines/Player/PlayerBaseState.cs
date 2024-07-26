@@ -22,16 +22,6 @@ public abstract class PlayerBaseState : State
         Move(Vector3.zero, deltaTime);
     }
 
-    protected void FaceTarget()
-    {
-        if (stateMachine.m_Targeter.m_CurrentTarget == null) return;
-
-        Vector3 lookPos = stateMachine.m_Targeter.m_CurrentTarget.transform.position - stateMachine.transform.position;
-        lookPos.y = 0f;
-
-        stateMachine.transform.rotation = Quaternion.LookRotation(lookPos);
-    }
-
     protected void TryApplyForce(Vector3 direction, float force, float deltaTime, ref bool hasAlreadyAppliedForce)
     {
         if (!hasAlreadyAppliedForce)

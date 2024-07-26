@@ -23,7 +23,6 @@ public class PlayerStateMachine : StateMachine  //A Player behavioural controlle
     [field: SerializeField] public InputReader m_InputReader { get; private set; }
     [field: SerializeField] public CharacterController m_Controller { get; private set; }
     [field: SerializeField] public Animator m_Animator { get; private set; }
-    [field: SerializeField] public Targeter m_Targeter { get; private set; }
     [field: SerializeField] public ForceReceiver m_ForceReceiver { get; private set; }
     [field: SerializeField] public WeaponDamage m_Weapon { get; private set; }
     [field: SerializeField] public float m_FreeLookMovementSpeed { get; private set; }
